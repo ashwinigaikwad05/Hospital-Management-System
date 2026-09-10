@@ -72,16 +72,18 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message || 'Internal Server Error' });
 });
 
-app.listen(PORT, () => {
-  console.log('================================================================');
-  console.log(`🏥 OPD Management System Backend is running!`);
-  console.log(`🌐 Server URL: http://localhost:${PORT}`);
-  console.log(`📋 API Health: http://localhost:${PORT}/api/health`);
-  console.log(`🔑 Demo Credentials:`);
-  console.log(`   - Admin:        admin / admin123`);
-  console.log(`   - Receptionist: receptionist / reception123`);
-  console.log(`   - Doctor:       dr.sharma / doctor123`);
-  console.log('================================================================');
-});
+if (require.main === module && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log('================================================================');
+    console.log(`🏥 OPD Management System Backend is running!`);
+    console.log(`🌐 Server URL: http://localhost:${PORT}`);
+    console.log(`📋 API Health: http://localhost:${PORT}/api/health`);
+    console.log(`🔑 Demo Credentials:`);
+    console.log(`   - Admin:        admin / admin123`);
+    console.log(`   - Receptionist: receptionist / reception123`);
+    console.log(`   - Doctor:       dr.sharma / doctor123`);
+    console.log('================================================================');
+  });
+}
 
 module.exports = app;

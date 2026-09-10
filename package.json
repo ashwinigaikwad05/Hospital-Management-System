@@ -5,8 +5,12 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
+    "build": "cd client && npm install && npm run build",
     "seed": "node server/db/seed.js",
     "test": "node tests/api-test.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   },
   "keywords": ["opd", "hospital", "management", "healthcare", "clinic", "ehr"],
   "author": "Antigravity",

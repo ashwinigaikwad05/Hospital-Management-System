@@ -2,17 +2,40 @@ const { DatabaseSync } = require('node:sqlite');
 const path = require('path');
 const fs = require('fs');
 
-const dataDir = path.join(__dirname, '../../data');
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
+const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true' || !!process.env.VERCEL;
+const originalDbPath = path.join(__dirname, '../../data/opd.db');
+
+let dbPath;
+if (isVercel) {
+  const tmpDir = '/tmp/data';
+  if (!fs.existsSync(tmpDir)) {
+    fs.mkdirSync(tmpDir, { recursive: true });
+  }
+  dbPath = path.join(tmpDir, 'opd.db');
+
+  // If opd.db doesn't exist in /tmp yet, copy it from repository data/opd.db
+  if (!fs.existsSync(dbPath) && fs.existsSync(originalDbPath)) {
+    try {
+      fs.copyFileSync(originalDbPath, dbPath);
+    } catch (e) {
+      console.warn('Could not copy initial db, will initialize fresh:', e.message);
+    }
+  }
+} else {
+  const dataDir = path.join(__dirname, '../../data');
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+  dbPath = path.join(dataDir, 'opd.db');
 }
 
-const dbPath = path.join(dataDir, 'opd.db');
 const db = new DatabaseSync(dbPath);
 
-// Enable foreign keys and WAL mode for high reliability & performance
+// Enable foreign keys and journal mode
 db.exec('PRAGMA foreign_keys = ON;');
-db.exec('PRAGMA journal_mode = WAL;');
+if (!isVercel) {
+  db.exec('PRAGMA journal_mode = WAL;');
+}
 
 function initializeDatabase() {
   db.exec(`

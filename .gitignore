@@ -1,0 +1,23 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# SQLite temporary wal and shm files
+data/*.db-wal
+data/*.db-shm
+data/*.db-journal
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Vercel
+.vercel
+
+# Editor directories
+.vscode
+.idea
+.DS_Store
+Thumbs.db
