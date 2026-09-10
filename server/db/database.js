@@ -1,4 +1,4 @@
-const { DatabaseSync } = require('node:sqlite');
+const Database = require('better-sqlite3');
 const path = require('path');
 const fs = require('fs');
 
@@ -29,12 +29,12 @@ if (isVercel) {
   dbPath = path.join(dataDir, 'opd.db');
 }
 
-const db = new DatabaseSync(dbPath);
+const db = new Database(dbPath);
 
 // Enable foreign keys and journal mode
-db.exec('PRAGMA foreign_keys = ON;');
+db.pragma('foreign_keys = ON');
 if (!isVercel) {
-  db.exec('PRAGMA journal_mode = WAL;');
+  db.pragma('journal_mode = WAL');
 }
 
 function initializeDatabase() {
