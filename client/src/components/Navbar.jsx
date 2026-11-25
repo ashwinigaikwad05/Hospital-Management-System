@@ -35,12 +35,12 @@ export default function Navbar() {
           </div>
           <div>
             <h1 className="text-base font-bold text-slate-900 leading-none flex items-center gap-2">
-              OPD Management System
+              Hospital Management System
               <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-hospital-100 text-hospital-800">
                 Hospital System
               </span>
             </h1>
-            <p className="text-xs text-slate-500 mt-0.5">Outpatient Department Management</p>
+            <p className="text-xs text-slate-500 mt-0.5">Hospital Management System</p>
           </div>
         </div>
 
