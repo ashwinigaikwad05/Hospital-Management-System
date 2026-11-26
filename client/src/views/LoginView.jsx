@@ -27,7 +27,7 @@ export default function LoginView() {
     setLoading(true);
     try {
       await login(username, password);
-      showToast('Login successful. Welcome to OPD Management System!');
+      showToast('Login successful. Welcome to Hospital Management System!');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -58,8 +58,8 @@ export default function LoginView() {
           <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mx-auto mb-4 border border-white/20 shadow-lg">
             <Activity className="w-9 h-9 text-hospital-200" />
           </div>
-          <h1 className="text-2xl font-black tracking-tight uppercase">OPD Management System</h1>
-          <p className="text-xs text-hospital-200 mt-1 font-medium">Hospital Outpatient Department Portal</p>
+          <h1 className="text-2xl font-black tracking-tight uppercase">Hospital Management System</h1>
+          <p className="text-xs text-hospital-200 mt-1 font-medium">Hospital Management Portal</p>
         </div>
 
         <div className="p-8 space-y-6">
@@ -146,7 +146,7 @@ export default function LoginView() {
                 <span>Authenticating...</span>
               ) : (
                 <>
-                  <span>Sign In to OPD Portal</span>
+                  <span>Sign In to Hospital Portal</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
